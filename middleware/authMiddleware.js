@@ -16,14 +16,13 @@ const protect = asyncHandler( async (req, res, next) => {
             next()
         } catch (error) {
             console.error(error);
-            res.status(401)
-            throw new Error('token failed')
+            res.status(401).send({message: 'Token failed'})
         }
     }
 
     if(!token){
-        req.status(401)
-        throw new Error('Not authorized, no token')
+        res.status(401).send({message: 'no authorization, no token'})
+
     }
 
 

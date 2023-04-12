@@ -91,7 +91,13 @@ const updateUserProfile = asyncHandler(async (req, res) => {
     }
 })
 
+//get all users  Put /api/users/
+const getUsers = asyncHandler(async (req, res) => {
+    const users = await User.find({})
+    res.json(users)
+})
 
 
 
-module.exports ={authUser, getUserProfile, registerUser, updateUserProfile}
+
+module.exports ={authUser, getUserProfile, registerUser, updateUserProfile, getUsers}

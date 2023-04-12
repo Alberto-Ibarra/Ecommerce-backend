@@ -91,10 +91,15 @@ const updateUserProfile = asyncHandler(async (req, res) => {
     }
 })
 
-//get all users  Put /api/users/
+//get all users  get /api/users/
 const getUsers = asyncHandler(async (req, res) => {
-    const users = await User.find({})
-    res.json(users)
+    try {
+        const users = await User.find({});
+        res.json(users);
+    } catch (error) {
+        console.log(error);
+        res.status(500).json({ message: "Server Error" });
+    }
 })
 
 

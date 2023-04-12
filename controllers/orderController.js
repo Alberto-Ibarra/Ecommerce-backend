@@ -45,7 +45,7 @@ const updateOrderToPaid = asyncHandler(async (req, res) => {
 
     if(order){
         order.isPaid = true
-        order.paidAt = Date.now
+        order.paidAt = Date.now()
         order.paymentResult={
             id: req.body.id,
             status: req.body.status,
@@ -54,10 +54,21 @@ const updateOrderToPaid = asyncHandler(async (req, res) => {
         }
 
         const updatedOrder = await order.save()
+        console.log(updatedOrder);
         res.json(updatedOrder)
     }else{
         res.status(404).send({message: 'order not found'})
     }
 })
 
-module.exports = {addOrderItems, getOrderById, updateOrderToPaid}
+
+//get logged in user order  GET /api/orders/myorders
+
+const getMyOrders = asyncHandler(async (req, res) => {
+    const orders = await Order.find({user: req.user._id})
+    console.log(orders);
+    res.json(orders)
+
+})
+
+module.exports = {addOrderItems, getOrderById, updateOrderToPaid, getMyOrders}

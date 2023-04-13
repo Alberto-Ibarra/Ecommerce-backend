@@ -71,4 +71,11 @@ const getMyOrders = asyncHandler(async (req, res) => {
 
 })
 
-module.exports = {addOrderItems, getOrderById, updateOrderToPaid, getMyOrders}
+//get all orders GET /api/orders/
+const getOrders = asyncHandler(async (req, res) => {
+    const orders = await Order.find().populate('user', 'id name')
+    res.json(orders)
+
+})
+
+module.exports = {addOrderItems, getOrderById, updateOrderToPaid, getMyOrders, getOrders}

@@ -1,5 +1,6 @@
 const express = require('express');
 const path = require('path')
+const morgan = require('morgan')
 const cors = require('cors');
 const mongoose = require('mongoose');
 const dotenv = require('dotenv');
@@ -15,6 +16,11 @@ dotenv.config()
 connectDB()
 
 const app = express();
+
+if(process.env.NODE_ENV === 'development'){
+    app.use(morgan('dev'))
+}
+
 app.use(express.json())
 app.use(cors({
     exposedHeaders: ['Authorization'],
